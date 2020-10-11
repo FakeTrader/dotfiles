@@ -49,4 +49,8 @@ alias cd.....='cd ../../../..'
 
 # alias rm='rm -I'    # 'rm -i' prompts for every file
 
+# wget断点续传
+alias wget='wget -c'
+# start aria2 deamon
+alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
 alias tree='tree -N'
