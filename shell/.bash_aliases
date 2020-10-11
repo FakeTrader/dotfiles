@@ -20,4 +20,23 @@ alias cd...='cd ../..'
 alias cd....='cd ../../..'
 alias cd.....='cd ../../../..'
 
+# ------------------------------------------------------------------------------
+# | Directories Commands (create / remove)                                     |
+# ------------------------------------------------------------------------------
+
+# mkdir: always create parent-dirs, if needed
+# alias mkdir="mkdir -p"
+# alias md="mkdir"
+
+# dirs
+# alias d='dirs -v | head -10'
+
+# rmdir
+# alias rd="rmdir"
+
+# create a dir with date from today
+# alias mkdd='mkdir $(date +%Y%m%d)'
+
+# alias rm='rm -I'    # 'rm -i' prompts for every file
+
 alias tree='tree -N'
