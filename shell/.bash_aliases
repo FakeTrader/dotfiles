@@ -1,3 +1,8 @@
+# The Fuck
+eval $(thefuck --alias)
+# You can use whatever you want as an alias, like for Mondays:
+# eval $(thefuck --alias FUCK)
+
 # file mng
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
