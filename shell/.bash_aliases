@@ -53,6 +53,8 @@ alias cd.....='cd ../../../..'
 
 # alias rm='rm -I'    # 'rm -i' prompts for every file
 
+# Apps
+# Terminal
 # wget断点续传
 alias wget='wget -c'
 # start aria2 deamon
@@ -67,3 +69,8 @@ alias fgk="xattr -rd com.apple.quarantine "
 alias cpv='rsync -ah --info=progress2'
 alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --partial'
 alias tree='tree -N'
+
+# Homebrew Cask
+alias bci="brew cask install"
+
+# GUI
