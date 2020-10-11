@@ -53,4 +53,9 @@ alias cd.....='cd ../../../..'
 alias wget='wget -c'
 # start aria2 deamon
 alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
+
+# sign cr app (macOS)
+alias signapp="codesign --force --deep --sign - "
+# allow run app (macOS)
+alias fgk="xattr -rd com.apple.quarantine "
 alias tree='tree -N'
