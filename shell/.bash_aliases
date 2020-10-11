@@ -3,6 +3,10 @@ eval $(thefuck --alias)
 # You can use whatever you want as an alias, like for Mondays:
 # eval $(thefuck --alias FUCK)
 
+# Print each PATH entry on a separate line
+# NOT working on macOS (trying to fix it)
+# alias path="echo -e ${PATH//:/\\n}"
+
 # file mng
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
