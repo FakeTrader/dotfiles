@@ -8,3 +8,4 @@ fi
 
 mesg n || true
 
+export PATH=$PATH:/Applications/CodeExpander.app/Contents/Resources/app/nodes:/Users/whan/.once-gui/installation/node_modules/.bin:/Applications/CodeExpander.app/Contents/Resources/app/node_modules/.bin
