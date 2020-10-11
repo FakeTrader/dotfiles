@@ -58,4 +58,8 @@ alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
 alias signapp="codesign --force --deep --sign - "
 # allow run app (macOS)
 alias fgk="xattr -rd com.apple.quarantine "
+
+# file  operation
+alias cpv='rsync -ah --info=progress2'
+alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --partial'
 alias tree='tree -N'
