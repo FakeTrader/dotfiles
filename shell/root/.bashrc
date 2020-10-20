@@ -3,7 +3,7 @@ for file in ~/.bashrc.d/*.sh; do
     . $file
 done
 
-# The following ~/.bashrc is ported from Ubuntu 18.04 LTS
+# The following ~/.bashrc is ported from Ubuntu 20.04 LTS
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
