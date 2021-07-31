@@ -1,0 +1,54 @@
+{
+    "title": "Change caps_lock to command",
+    "rules": [
+        {
+            "description": "Change fn + caps_lock to CapsLock.",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "mandatory": [
+                                "fn"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "caps_lock",
+                            "lazy": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Change caps_lock to command if pressed with other keys, to escape if pressed alone.",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "left_command",
+                            "lazy": true
+                        }
+                    ],
+                    "to_if_alone": [
+                        {
+                            "key_code": "escape"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
