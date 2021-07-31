@@ -1,0 +1,129 @@
+{
+    "title": "Change mouse buttons",
+    "rules": [
+        {
+            "description": "Mouse Editing: Change button4,5 to Undo,Redo",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "pointing_button": "button4"
+                    },
+                    "to": [
+                        {
+                            "key_code": "z",
+                            "modifiers": "left_command"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "com.microsoft.VSCode",
+                                "com.microsoft.Word",
+                                "com.microsoft.Excel",
+                                "com.microsoft.Powerpoint",
+                                "com.kingsoft.wpsoffice.mac"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "pointing_button": "button5"
+                    },
+                    "to": [
+                        {
+                            "key_code": "z",
+                            "modifiers": [
+                                "left_command",
+                                "left_shift"
+                            ]
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "com.microsoft.VSCode",
+                                "com.microsoft.Word",
+                                "com.microsoft.Excel",
+                                "com.microsoft.Powerpoint",
+                                "com.kingsoft.wpsoffice.mac"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Mouse Navigation: Change button4,5 to back,forward",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "pointing_button": "button4",
+                        "modifiers": {
+                            "optional": [
+                                "caps_lock"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "open_bracket",
+                            "modifiers": "left_command"
+                        }
+                    ]
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "pointing_button": "button5",
+                        "modifiers": {
+                            "optional": [
+                                "caps_lock"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "close_bracket",
+                            "modifiers": "left_command"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Mouse middle button: Change button3 to Look Up",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "pointing_button": "button3"
+                    },
+                    "to": [
+                        {
+                            "key_code": "d",
+                            "modifiers": [
+                                "left_command",
+                                "left_control"
+                            ]
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "type": "frontmost_application_if",
+                            "bundle_identifiers": [
+                                "net.sourceforge.skim-app.skim",
+                                "com.readdle.PDFExpert-Mac"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
