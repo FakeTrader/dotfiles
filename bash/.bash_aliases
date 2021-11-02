@@ -73,6 +73,9 @@ alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --p
 # alias hexo="docker run --rm -p 4000:4000 -v ${PWD}:/blog 'hexo' hexo "
 alias tree='tree -N'
 
+# Conda
+alias cab="conda activate base"
+
 # Homebrew Cask
 alias bci="brew cask install"
 
