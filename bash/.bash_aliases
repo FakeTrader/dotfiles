@@ -78,5 +78,6 @@ alias cab="conda activate base"
 
 # Homebrew Cask
 alias bci="brew cask install"
+alias buo="brew update && brew outdated"
 
 # GUI
