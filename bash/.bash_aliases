@@ -57,19 +57,21 @@ alias cd.....='cd ../../../..'
 
 # alias rm='rm -I'    # 'rm -i' prompts for every file
 
-# Apps
-# Terminal
-# wget断点续传
-alias wget='wget -c'
-# start aria2 deamon
-alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
+## Apps
+## Terminal
+## wget断点续传
+alias wget='wget -c '
+## start aria2 deamon
+# alias aria2='aria2c --conf-path=$(echo ~)"/.aria2/aria2.conf" -D'
+# alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
 
-# sign cr app (macOS)
-alias signapp="codesign --force --deep --sign - "
-# allow run app (macOS)
-alias fgk="xattr -rd com.apple.quarantine "
+## sign cr app (macOS)
+# requires xcode dev
+alias signapp='codesign --force --deep --sign - '
+# F* Gatekeeper: allow run app (macOS)
+alias fgk='xattr -rd com.apple.quarantine '
 
-# file  operation
+## file  operation
 alias cpv='rsync -ah --info=progress2'
 alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --partial'
 
