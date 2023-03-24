@@ -7,10 +7,10 @@ eval $(thefuck --alias f)
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-# file mng
 # Reload the shell (i.e. invoke as a login shell)
 alias reload='exec ${SHELL} -l'
 
+# file manage
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
 # alias ls='ls --color=tty'
@@ -32,6 +32,7 @@ alias .....='cd ../../../..'
 alias -- -='cd -'
 
 # fallback by typo
+alias cd~='cd ~'
 alias cd..='cd ..'
 alias cd...='cd ../..'
 alias cd....='cd ../../..'
