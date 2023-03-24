@@ -107,3 +107,6 @@ alias gcs="gcloud compute ssh"
 alias gcl="gcloud compute instances list"
 alias gci="gcloud compute instances"
 
+## TeXLive
+# alias tlmgr='sudo tlmgr'
+
