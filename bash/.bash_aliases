@@ -88,3 +88,6 @@ alias bca='brew cu -a'
 # alias bif='brew install -f'
 alias buo='brew update && brew outdated'
 
+# tmux
+alias tmain='tmux new -As main'
+
