@@ -110,3 +110,9 @@ alias gci="gcloud compute instances"
 ## TeXLive
 # alias tlmgr='sudo tlmgr'
 
+## GUI
+# Turbo Boost Switcher
+# alias tbs='sudo -b /Applications/Turbo\ Boost\ Switcher.app/Contents/MacOS/Turbo\ Boost\ Switcher'
+
+## Parallels Desktop
+# alias pd='sudo -b -S /Applications/Parallels\ Desktop.app/Contents/MacOS/prl_client_app'
