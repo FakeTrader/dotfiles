@@ -4,19 +4,24 @@ eval $(thefuck --alias f)
 # You can use whatever you want as an alias, like for Mondays:
 # eval $(thefuck --alias FUCK)
 
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
-
 # Reload the shell (i.e. invoke as a login shell)
 alias reload='exec ${SHELL} -l'
+
+alias cls='clear'
 
 # file manage
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
 # alias ls='ls --color=tty'
 
+alias grep='grep --color=auto'
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
 # Ubuntu
-# alias inst='sudo apt install --no-install-recommends'
+alias aptin='sudo apt install --no-install-recommends'
+alias aptrm='sudo apt remove'
 
 # ------------------------------------------------------------------------------
 # | Navigation                                                                 |
@@ -32,7 +37,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias -- -='cd -'
+# alias -- -='cd -'
 
 # fallback by typo
 alias cd~='cd ~'
@@ -47,13 +52,12 @@ alias cd.....='cd ../../../..'
 
 # mkdir: always create parent-dirs, if needed
 # alias mkdir='mkdir -p'
-# alias md='mkdir'
+alias md='mkdir -p'
+# rmdir
+alias rd='rmdir'
 
 # dirs
 # alias d='dirs -v | head -10'
-
-# rmdir
-# alias rd='rmdir'
 
 # create a dir with date from today
 # alias mkdd='mkdir $(date +%Y%m%d)'
@@ -65,7 +69,7 @@ alias cd.....='cd ../../../..'
 ## wget断点续传
 alias wget='wget -c '
 ## start aria2 deamon
-# alias aria2='aria2c --conf-path=$(echo ~)"/.aria2/aria2.conf" -D'
+alias aria2='aria2c --conf-path=$(echo ~)"/.aria2/aria2.conf" -D'
 # alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
 
 ## sign cr app (macOS)
@@ -84,7 +88,6 @@ alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --p
 alias tree='tree -N'
 
 ## Conda
-alias cab='conda activate base'
 alias ca='conda activate'
 
 ## Homebrew
