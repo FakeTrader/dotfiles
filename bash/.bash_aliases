@@ -98,8 +98,11 @@ alias buo='brew update && brew outdated'
 alias tmain='tmux new -As main'
 
 ## Python
-alias pip='python -m pip'
-alias py='python'
+alias py='python3'
+alias pip='python3 -m pip'
+alias pin='python3 -m pip install'
+alias prm='python3 -m pip uninstall'
+alias ipy='ipython'
 
 ## MySQL
 alias mysqlon='mysql.server start'
