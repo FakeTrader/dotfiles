@@ -26,3 +26,10 @@ export OSFONTDIR=$HOME/Library/Fonts//:/Library/Fonts//:/System/Library/Fonts//
 export CHKTEXRC=$HOME/dotfiles/rc
 export LATEXMKRCSYS=$HOME/dotfiles/rc/latexmkrc
 
+## FPGA
+## toolchain
+# export PATH="$HOME/Applications/fpga-toolchain/bin:$PATH"
+# export GHDL_PREFIX="$HOME/Applications/fpga-toolchain/lib/ghdl"
+# export PATH="$HOME/Applications/oss-cad-suite/bin:$PATH"
+## GTKWave
+# export PATH="/Applications/gtkwave.app/Contents/Resources/bin:$PATH"
