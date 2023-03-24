@@ -69,18 +69,14 @@ alias fgk="xattr -rd com.apple.quarantine "
 alias cpv='rsync -ah --info=progress2'
 alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --partial'
 
-# hexo
-# alias hexo="docker run --rm -p 4000:4000 -v ${PWD}:/blog 'hexo' hexo "
-alias tree='tree -N'
+## hexo
+# alias hexo='docker run --rm -p 4000:4000 -v ${PWD}:/blog 'hexo' hexo '
 
-# Conda
-alias cab="conda activate base"
 
-# Homebrew Cask
-alias bci="brew cask install"
-alias buo="brew update && brew outdated"
+## Conda
+alias cab='conda activate base'
+alias ca='conda activate'
 
-# GUI
 ## Homebrew Cask
 alias bca='brew cu -a'
 # alias bic='brew install --cask'
