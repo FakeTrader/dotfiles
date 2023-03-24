@@ -81,3 +81,10 @@ alias bci="brew cask install"
 alias buo="brew update && brew outdated"
 
 # GUI
+## Homebrew Cask
+alias bca='brew cu -a'
+# alias bic='brew install --cask'
+# alias buc='brew uninstall --cask'
+# alias bif='brew install -f'
+alias buo='brew update && brew outdated'
+
