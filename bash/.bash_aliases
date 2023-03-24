@@ -8,6 +8,9 @@ eval $(thefuck --alias f)
 alias path='echo -e ${PATH//:/\\n}'
 
 # file mng
+# Reload the shell (i.e. invoke as a login shell)
+alias reload='exec ${SHELL} -l'
+
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
 # alias ls='ls --color=tty'
