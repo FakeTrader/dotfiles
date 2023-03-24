@@ -95,3 +95,7 @@ alias tmain='tmux new -As main'
 alias pip='python -m pip'
 alias py='python'
 
+## MySQL
+alias mysqlon='mysql.server start'
+alias mysqloff='mysql.server stop'
+
