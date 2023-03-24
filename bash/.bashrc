@@ -1,5 +1,5 @@
 # custom configs
-for file in ~/.bashrc.d/*.sh; do
+for file in ~/.bashrc.d/*.bash; do
     . $file
 done
 
