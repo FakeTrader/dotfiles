@@ -33,3 +33,6 @@ export LATEXMKRCSYS=$HOME/dotfiles/rc/latexmkrc
 # export PATH="$HOME/Applications/oss-cad-suite/bin:$PATH"
 ## GTKWave
 # export PATH="/Applications/gtkwave.app/Contents/Resources/bin:$PATH"
+
+## NASA CDF library
+# export PATH="$/Applications/cdf/cdf/bin:$PATH"
