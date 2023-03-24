@@ -87,12 +87,15 @@ alias tree='tree -N'
 alias cab='conda activate base'
 alias ca='conda activate'
 
-## Homebrew Cask
+## Homebrew
 alias bca='brew cu -a'
 # alias bic='brew install --cask'
 # alias buc='brew uninstall --cask'
 # alias bif='brew install -f'
 alias buo='brew update && brew outdated'
+alias bup='brew update && brew outdated && brew upgrade'
+alias bin='brew install'
+alias brm='brew uninstall'
 
 # tmux
 alias tmain='tmux new -As main'
