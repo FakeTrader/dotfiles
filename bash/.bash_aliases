@@ -5,13 +5,12 @@ eval $(thefuck --alias f)
 # eval $(thefuck --alias FUCK)
 
 # Print each PATH entry on a separate line
-# NOT working on macOS (trying to fix it)
-# alias path="echo -e ${PATH//:/\\n}"
+alias path='echo -e ${PATH//:/\\n}'
 
 # file mng
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
-# alias ls="ls --color=tty"
+# alias ls='ls --color=tty'
 
 # ------------------------------------------------------------------------------
 # | Navigation                                                                 |
@@ -22,12 +21,12 @@ alias ls='ls -FG'
 # alias po='popd'
 
 # Easier navigation: .., ..., ...., ....., ~ and -
-alias ~="cd ~"      # `cd` is probably faster to type though
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-# alias -- -="cd -"
+alias ~='cd ~'      # `cd` is probably faster to type though
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -- -='cd -'
 
 # fallback by typo
 alias cd..='cd ..'
@@ -40,14 +39,14 @@ alias cd.....='cd ../../../..'
 # ------------------------------------------------------------------------------
 
 # mkdir: always create parent-dirs, if needed
-# alias mkdir="mkdir -p"
-# alias md="mkdir"
+# alias mkdir='mkdir -p'
+# alias md='mkdir'
 
 # dirs
 # alias d='dirs -v | head -10'
 
 # rmdir
-# alias rd="rmdir"
+# alias rd='rmdir'
 
 # create a dir with date from today
 # alias mkdd='mkdir $(date +%Y%m%d)'
