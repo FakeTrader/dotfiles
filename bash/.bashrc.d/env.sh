@@ -21,3 +21,8 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # export CPPFLAGS="-I/usr/local/opt/sqlite/include"
 # export PKG_CONFIG_PATH="/usr/local/opt/sqlite/lib/pkgconfig"
 
+## LaTeX
+export OSFONTDIR=$HOME/Library/Fonts//:/Library/Fonts//:/System/Library/Fonts//
+export CHKTEXRC=$HOME/dotfiles/rc
+export LATEXMKRCSYS=$HOME/dotfiles/rc/latexmkrc
+
