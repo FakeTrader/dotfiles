@@ -99,3 +99,11 @@ alias py='python'
 alias mysqlon='mysql.server start'
 alias mysqloff='mysql.server stop'
 
+## Google Cloud
+# gcloud auth login
+# gcloud config set project mml-23
+alias gc="gcloud compute"
+alias gcs="gcloud compute ssh"
+alias gcl="gcloud compute instances list"
+alias gci="gcloud compute instances"
+
