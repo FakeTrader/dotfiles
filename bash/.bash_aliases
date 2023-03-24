@@ -91,3 +91,7 @@ alias buo='brew update && brew outdated'
 # tmux
 alias tmain='tmux new -As main'
 
+## Python
+alias pip='python -m pip'
+alias py='python'
+
