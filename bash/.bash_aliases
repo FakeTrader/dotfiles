@@ -15,6 +15,9 @@ alias ls='ls -FG'
 # alias ls='ls --color=auto'
 # alias ls='ls --color=tty'
 
+# Ubuntu
+# alias inst='sudo apt install --no-install-recommends'
+
 # ------------------------------------------------------------------------------
 # | Navigation                                                                 |
 # ------------------------------------------------------------------------------
@@ -78,6 +81,7 @@ alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --p
 ## hexo
 # alias hexo='docker run --rm -p 4000:4000 -v ${PWD}:/blog 'hexo' hexo '
 
+alias tree='tree -N'
 
 ## Conda
 alias cab='conda activate base'
