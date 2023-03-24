@@ -98,7 +98,10 @@ alias bin='brew install'
 alias brm='brew uninstall'
 
 # tmux
-alias tmain='tmux new -As main'
+alias tm='tmux new -As main'
+alias tls='tmux ls'
+alias tnew='tmux new -s'
+alias tat='tmux a -t'
 
 ## Python
 alias py='python3'
