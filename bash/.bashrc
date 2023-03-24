@@ -1,3 +1,8 @@
+# custom configs
+for file in ~/.bashrc.d/*.sh; do
+    . $file
+done
+
 # Ubuntu 20.04 LTS
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
