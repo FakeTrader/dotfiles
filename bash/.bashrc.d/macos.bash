@@ -8,3 +8,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 alias dsclean='find . -name ".DS_Store" -type f -delete'
 alias flush='dscahceutil -flushcache'
+
+alias gatekeeperon='sudo spctl --master-enable'
+alias gatekeeperoff='sudo spctl --master-disable'
