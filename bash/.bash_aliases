@@ -114,8 +114,23 @@ alias prm='python3 -m pip uninstall'
 alias ipy='ipython'
 
 ## MySQL
-alias mysqlon='mysql.server start'
-alias mysqloff='mysql.server stop'
+alias mysqlon='brew services start mysql@8.0'
+alias mysqloff='brew services stop mysql@8.0'
+# alias mysqlon='docker run --env MYSQL_ALLOW_EMPTY_PASSWORD=true --name mysql -d -p 3306:3306 mysql:latest'
+# alias mysqloff='mysql.server stop'
+
+## Redis
+alias redison='brew services start redis@7.2'
+alias redisoff='brew services stop redis@7.2'
+# alias redison='redis-server /usr/local/etc/redis.conf'
+# alias redisoff='redis-cli shutdown'
+
+## nacos
+alias nacoson='bash $HOME/Applications/nacos/bin/startup.sh -m standalone'
+alias nacosoff='bash $HOME/Applications/nacos/bin/shutdown.sh'
+# alias nacoson='docker run --env MODE=standalone --name nacos -d -p 8848:8848 -p 9848:9848 nacos/nacos-server'
+# alias nacosoff='sh $HOME/Applications/nacos/bin/shutdown.sh'
+
 
 ## Google Cloud
 # gcloud auth login
