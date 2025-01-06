@@ -1,0 +1,45 @@
+services:
+  nginx-ui:
+    image: uozi/nginx-ui:latest
+    container_name: nginx-ui
+    ports:
+      - "8443:443"
+      - 8080:80
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${MYSQL_DATA_PATH}/8.4/data:/var/lib/mysql
+      - ${MYSQL_DATA_PATH}/8.4/etc/my.cnf:/etc/my.cnf
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: mysql-8.0
+    ports:
+      - "443:443"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${MYSQL_DATA_PATH}/8.0/data:/var/lib/mysql
+      - ${MYSQL_DATA_PATH}/8.0/etc/my.cnf:/etc/my.cnf
+
+  mysql-5.7:
+    image: mysql:5.7
+    container_name: mysql-5.7
+    ports:
+      - "33057:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${MYSQL_DATA_PATH}/5.7/data:/var/lib/mysql
+      - ${MYSQL_DATA_PATH}/5.7/etc/my.cnf:/etc/my.cnf
+
+  mysql-5.5:
+    image: mysql:5.5
+    container_name: mysql-5.5
+    ports:
+      - "33055:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${MYSQL_DATA_PATH}/5.5/data:/var/lib/mysql
+      - ${MYSQL_DATA_PATH}/5.5/etc/mysql/my.cnf:/etc/mysql/my.cnf

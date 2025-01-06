@@ -1,0 +1,66 @@
+name: mysql
+services:
+  # mysql-9.7:
+  #   image: mysql:9.7
+  #   container_name: mysql-9.7
+  #   ports:
+  #     - "33097:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+  #   volumes:
+  #     - ${MYSQL_HOME}/9.7/data:/var/lib/mysql
+  #     - ${MYSQL_HOME}/9.7/etc/my.cnf:/etc/my.cnf
+
+  mysql-8.4:
+    container_name: mysql-8.4
+    image: mysql:8.4
+    network_mode: bridge
+    ports:
+      - "33084:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_HOME}/8.4/data:/var/lib/mysql
+      - ${MYSQL_HOME}/8.4/etc/my.cnf:/etc/my.cnf
+
+
+  mysql-8.0:
+    container_name: mysql-8.0
+    image: mysql:8.0
+    network_mode: bridge
+    # network_mode: host
+    ports:
+      - "33080:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_HOME}/8.0/data:/var/lib/mysql
+      - ${MYSQL_HOME}/8.0/etc/my.cnf:/etc/my.cnf
+    # command: --port 33080
+
+
+  mysql-5.7:
+    container_name: mysql-5.7
+    image: mysql:5.7
+    network_mode: bridge
+    ports:
+      - "33057:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_HOME}/5.7/data:/var/lib/mysql
+      - ${MYSQL_HOME}/5.7/etc/my.cnf:/etc/my.cnf
+
+
+  mysql-5.5:
+    container_name: mysql-5.5
+    image: mysql:5.5
+    network_mode: bridge
+    ports:
+      - "33055:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    volumes:
+      - ${MYSQL_HOME}/5.5/data:/var/lib/mysql
+      - ${MYSQL_HOME}/5.5/etc/mysql/my.cnf:/etc/mysql/my.cnf
+

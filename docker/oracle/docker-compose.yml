@@ -1,0 +1,15 @@
+services:
+  oracle:
+    image: oracle/database:19.3.0-ee
+    container_name: oracle-db
+    network_mode: bridge
+    user: oracle
+    environment:
+      ORACLE_SID: ORCL
+      ORACLE_PWD: oracle
+    volumes:
+      - /data/oracle/19c/opt/oracle/oradata:/opt/oracle/oradata
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    restart: no

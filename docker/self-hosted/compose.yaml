@@ -1,0 +1,149 @@
+name: self-hosted
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:${MYSQL_VERSION}
+    restart: always
+    network_mode: bridge
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${MYSQL_HOME}/${MYSQL_VERSION}/data:/var/lib/mysql
+      - ${MYSQL_HOME}/${MYSQL_VERSION}/etc/my.cnf:/etc/my.cnf
+
+  redis:
+    container_name: redis
+    image: redis:${REDIS_VERSION}
+    restart: always
+    network_mode: bridge
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${REDIS_HOME}/${REDIS_VERSION}/data:/data
+    # command: redis-server --requirepass root
+
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: postgres
+    restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    # shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${POSTGRES_HOME}/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ${POSTGRES_HOME}/data:/var/lib/postgresql/data
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  oracle:
+    # image: oracle/database:19.3.0-ee
+    image: container-registry.oracle.com/database/free:23.5.0.0-lite
+    container_name: oracle-db
+    # restart: always
+    environment:
+      # ORACLE_PDB: FREEPDB1
+      # ORACLE_SID
+      # ORACLE_SID: ORCL
+      # 21 必须为 XE
+      # ORACLE_SID: XE
+      # 23ai 必须为 FREE
+      ORACLE_SID: FREE
+      ORACLE_PWD: oracle
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - ${ORACLE_HOME}/23ai/opt/oracle/oradata:/opt/oracle/oradata
+
+  # sftp:
+  #   container_name: sftp-go
+  #   image: drakkan/sftpgo:latest
+
+  zookeeper:
+    image: zookeeper:${ZOOKEEPER_VERSION}
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka-broker:
+    image: apache/kafka:${KAFKA_VERSION}
+    container_name: kafka-broker
+    ports:
+      - "9092:9092"
+    volumes:
+      - ${KAFKA_HOME}/etc/kafka/secrets:/etc/kafka/secrets
+      - ${KAFKA_HOME}/mnt/shared/config:/mnt/shared/config
+      - ${KAFKA_HOME}/var/lib/kafka/data:/var/lib/kafka/data
+
+  # kafka-ui:
+  #   container_name: kafka-ui
+  #   image: provectuslabs/kafka-ui:latest
+  #   ports:
+  #     - 19092:8080
+  #   networks:
+  #     - host
+  #   # depends_on:
+  #   #   - kafka-broker
+  #   environment:
+  #     DYNAMIC_CONFIG_ENABLED: 'true'
+  #   extra_hosts:
+  #     - "dev16=10.100.0.16"
+  #     - "dev17=10.100.0.17"
+  #     - "dev18=10.100.0.18"
+  #   # volumes:
+  #   #   - ${KAFKA_HOME}/kafkaui/config.yml:/etc/kafkaui/dynamic_config.yaml
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      # 至少3位，默认 minioadmin
+      MINIO_ROOT_USER: minioadmin
+      # 至少8位，默认 minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - ${MINIO_HOME}/data:/data
+      # - ${MINIO_HOME}/config:/root/.minio
+    command: server /data --console-address ":9001"
+
+
+
+# docker run
+# --env=SFTPGO_FTPD__PASSIVE_PORT_RANGE__END=40010
+# --env=SFTPGO_FTPD__BINDINGS__0__PORT=2021
+# --env=SFTPGO_FTPD__BINDINGS__0__FORCE_PASSIVE_IP=127.0.0.1
+# --env=SFTPGO_FTPD__BINDINGS__0__PASSIVE_CONNECTIONS_SECURITY=1
+# --env=SFTPGO_FTPD__BINDINGS__0__ACTIVE_CONNECTIONS_SECURITY=1
+# --env=SFTPGO_FTPD__PASSIVE_PORT_RANGE__START=40000
+# --env=SFTPGO_WEBDAVD__BINDINGS__0__PORT=5005
+# -p 2020:2020 -p 2021:2021 -p 2022:2022
+# -p 40000:40000 -p 40001:40001 -p 40002:40002 -p 40003:40003 -p 40004:40004 -p 40005:40005 -p 40006:40006 -p 40007:40007 -p 40008:40008 -p 40009:40009 -p 40010:40010
+# -p 5005:5005 -p 28080:8080 -p 28090:8090
+# -d drakkan/sftpgo:v2
+
+
+
+
+# docker run --name kafka-ui -p 39099:8080 --privileged=true --network=host -e KAFKA_CLUSTERS_0_NAME=Local -e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=10.100_0.16:6667 -d provectuslabs/kafka-ui:latest
+

@@ -1,0 +1,29 @@
+services:
+  kafka-1:
+    image: apache/kafka:3.8.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${KAFKA_HOME}/3.8/etc/kafka/secrets:/etc/kafka/secrets
+      - ${KAFKA_HOME}/3.8/mnt/shared/config:/mnt/shared/config
+      - ${KAFKA_HOME}/3.8/var/lib/kafka/data:/var/lib/kafka/data
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8080:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    volumes:
+      - ${KAFKA_HOME}/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
