@@ -91,10 +91,15 @@ plugins=(
   colorize
   thefuck
   conda
+  python
   dotenv
   brew
   gnu-utils
   mvn
+  dbt
+  zsh-autosuggestions
+  # must be the last plugin loaded
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh

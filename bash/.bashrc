@@ -1,9 +1,9 @@
-# custom configs
-for file in ~/.bashrc.d/*.bash; do
-    . $file
-done
+## profile bash
+# PS4='+ $(date "+%s.%N")\011 '
+# exec 3>&2 2>/tmp/bashstart.$$.log
+# set -x
 
-# Ubuntu 20.04 LTS
+# Ubuntu Server 22.04 LTS
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -122,3 +122,12 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# bash-completion@2
+# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+
+## end of profile
+# set +x
+# exec 2>&3 3>&-
+

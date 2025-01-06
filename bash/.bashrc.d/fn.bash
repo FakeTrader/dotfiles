@@ -10,6 +10,39 @@ function cl() {
         ls -F --color=auto
 }
 
+# kill port
+function portkill() {
+  lsof -nti :$1 | xargs kill -9
+}
+# ------------------- PORT UTILTIES ----------------------
+# Find PID of process on a specific port
+# param portNumber
+# example: "findPortProcess 8080"
+findPortProcess() {
+    portProcess="$(lsof -n -i4TCP:$1 | grep LISTEN)"
+    if [ "$portProcess" ]
+    then
+        echo $portProcess
+    else
+        echo "No Process on Port:$1"
+    fi
+}
+
+# Kills Process on a Port
+# param portNumber
+# example: "killPort 8080"
+killPort() {
+    processPID="$(lsof -ti tcp:$1)"
+    if [ "$processPID" ]
+    then
+        kill $processPID
+        echo "Killed Process on Port:$1"
+    else
+        echo "No Process on Port:$1"
+    fi
+
+}
+
 # unarchive
 function extract()      # Handy Extract Program
 {

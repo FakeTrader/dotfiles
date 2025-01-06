@@ -1,4 +1,4 @@
-# The following ~/.profile is ported from Ubuntu 20.04 LTS
+# The following ~/.profile is ported from Ubuntu Server 22.04 LTS
 
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login

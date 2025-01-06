@@ -1,27 +1,62 @@
-## The Fuck
-eval $(thefuck --alias f)
-# eval $(thefuck --alias)
-# You can use whatever you want as an alias, like for Mondays:
-# eval $(thefuck --alias FUCK)
-
+# https://github.com/ohmybash/oh-my-bash/tree/master/aliases
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/common-aliases/common-aliases.plugin.zsh
+# https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
 # Reload the shell (i.e. invoke as a login shell)
 alias reload='exec ${SHELL} -l'
 
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# clear screen
 alias cls='clear'
+alias c='clear'
 
 # file manage
+alias ll='ls -lAFh -I .DS_Store'
 alias ls='ls -FG'
 # alias ls='ls --color=auto'
 # alias ls='ls --color=tty'
 
 alias grep='grep --color=auto'
+# alias grep='grep --color'
+alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
+alias t='tail -f'
+
+# Command line head / tail shortcuts
+# alias -g H='| head'
+# alias -g T='| tail'
+# alias -g G='| grep'
+# alias -g L="| less"
+# alias -g M="| most"
+# alias -g LL="2>&1 | less"
+# alias -g CA="2>&1 | cat -A"
+# alias -g NE="2> /dev/null"
+# alias -g NUL="> /dev/null 2>&1"
+# alias -g P="2>&1| pygmentize -l pytb"
+
+alias dud='du -d 1 -h'
+# (( $+commands[duf] )) || alias duf='du -sh *'
+# (( $+commands[fd] )) || alias fd='find . -type d -name'
+alias duf='du -sh *'
+alias fd='find . -type d -name'
+alias ff='find . -type f -name'
+
+alias h='history'
+alias hgrep="fc -El 0 | grep"
+alias help='man'
+alias p='ps -f'
+alias sortnr='sort -n -r'
+alias unexport='unset'
 
 # Ubuntu
-alias aptin='sudo apt install --no-install-recommends'
-alias aptrm='sudo apt remove'
+alias aptin='sudo apt-get install --no-install-recommends'
+alias aptrm='sudo apt-get remove'
 
 # ------------------------------------------------------------------------------
 # | Navigation                                                                 |
@@ -32,12 +67,12 @@ alias aptrm='sudo apt remove'
 # alias po='popd'
 
 # Easier navigation: .., ..., ...., ....., ~ and -
-alias ~='cd ~'      # `cd` is probably faster to type though
+alias ~='cd ~'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-# alias -- -='cd -'
+alias -- -='cd -'
 
 # fallback by typo
 alias cd~='cd ~'
@@ -64,19 +99,22 @@ alias rd='rmdir'
 
 # alias rm='rm -I'    # 'rm -i' prompts for every file
 
+
+alias k='kill -9'
+
+# alias portkill='function _killp(){ lsof -nti:$1 | xargs kill -9 };_killp'
+# alias pk='function _killp(){ lsof -nti:$1 | xargs kill -9 };_killp'
+# alias pk='portkill'
+alias kp='killPort'
+
 ## Apps
 ## Terminal
+
 ## wget断点续传
 alias wget='wget -c '
 ## start aria2 deamon
 alias aria2='aria2c --conf-path=$(echo ~)"/.aria2/aria2.conf" -D'
 # alias aria2="aria2c --conf-path=$(echo ~)'/.aria2/aria2.conf' -D"
-
-## sign cr app (macOS)
-# requires xcode dev
-alias signapp='codesign --force --deep --sign - '
-# F* Gatekeeper: allow run app (macOS)
-alias fgk='xattr -rd com.apple.quarantine '
 
 ## file  operation
 alias cpv='rsync -ah --info=progress2'
@@ -87,50 +125,28 @@ alias copy='rsync -avv --stats --human-readable --itemize-changes --progress --p
 
 alias tree='tree -N'
 
-## Conda
-alias ca='conda activate'
-
-## Homebrew
-alias bca='brew cu -a'
-# alias bic='brew install --cask'
-# alias buc='brew uninstall --cask'
-# alias bif='brew install -f'
-alias buo='brew update && brew outdated'
-alias bup='brew update && brew outdated && brew upgrade'
-alias bin='brew install'
-alias brm='brew uninstall'
-
 # tmux
 alias tm='tmux new -As main'
 alias tls='tmux ls'
 alias tnew='tmux new -s'
 alias tat='tmux a -t'
 
-## Python
-alias py='python3'
-alias pip='python3 -m pip'
-alias pin='python3 -m pip install'
-alias prm='python3 -m pip uninstall'
-alias ipy='ipython'
-
-## MySQL
-alias mysqlon='brew services start mysql@8.0'
-alias mysqloff='brew services stop mysql@8.0'
-# alias mysqlon='docker run --env MYSQL_ALLOW_EMPTY_PASSWORD=true --name mysql -d -p 3306:3306 mysql:latest'
-# alias mysqloff='mysql.server stop'
-
-## Redis
-alias redison='brew services start redis@7.2'
-alias redisoff='brew services stop redis@7.2'
-# alias redison='redis-server /usr/local/etc/redis.conf'
-# alias redisoff='redis-cli shutdown'
+alias datax='python3 /opt/datax/bin/datax.py'
 
 ## nacos
-alias nacoson='bash $HOME/Applications/nacos/bin/startup.sh -m standalone'
-alias nacosoff='bash $HOME/Applications/nacos/bin/shutdown.sh'
+alias nacoson='bash /opt/nacos/bin/startup.sh -m standalone'
+alias nacosoff='bash /opt/nacos/bin/shutdown.sh'
 # alias nacoson='docker run --env MODE=standalone --name nacos -d -p 8848:8848 -p 9848:9848 nacos/nacos-server'
 # alias nacosoff='sh $HOME/Applications/nacos/bin/shutdown.sh'
 
+alias flowable='java -jar -Dspring.config.location=/opt/flowable/application.yml /opt/flowable/flowable-ui.war'
+
+## kill process
+# pkill
+# or
+# pgrep <> | xargs kill -9
+# alias killtb="ps -ef | grep tensorboard | awk '{print $2}' | xargs kill -9"
+# alias killtrain="ps -ef | grep train | awk '{print $2}' | xargs kill -9"
 
 ## Google Cloud
 # gcloud auth login
@@ -139,6 +155,8 @@ alias gc="gcloud compute"
 alias gcs="gcloud compute ssh"
 alias gcl="gcloud compute instances list"
 alias gci="gcloud compute instances"
+
+alias imgtovmdk="qemu-img convert -f raw -O vmdk"
 
 ## TeXLive
 # alias tlmgr='sudo tlmgr'

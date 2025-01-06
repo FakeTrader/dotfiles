@@ -1,20 +1,34 @@
 # LTS: JDK 8, 11, 17, 21, 25
 
+# export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
 jdk() {
-    version=$1
-    export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+    set_sdk "jdk" $1
     java -version
 }
+
+graal() {
+    set_sdk "graalvm" $1
+    java -version
+}
+
+set_sdk () {
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/$1-$2.jdk/Contents/Home;
+}
+
 alias jdk8="jdk 1.8"
 alias jdk11="jdk 11"
 alias jdk17="jdk 17"
 alias jdk21="jdk 21"
 # alias jdk25="jdk 25"
 
+alias graal21="graal 21"
+
+export GRAALVM_HOME=/Library/Java/JavaVirtualMachines/graalvm-21.jdk/Contents/Home
+
 # Default Java 1.8
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
-export JAVA_HOME=`/usr/libexec/java_home -v 21`
-
+# export JAVA_HOME=`/usr/libexec/java_home -v 21`
+set_sdk "jdk" 21
 
 ## Tomcat
 export PATH="$HOMEBREW_PREFIX/opt/tomcat@9/bin:$PATH"
@@ -39,6 +53,7 @@ alias tomcatoff='$CATALINA_HOME/bin/shutdown.sh'
 # export JAVA_11_HOME=`/usr/libexec/java_home -v 11`
 # export JAVA_17_HOME=`/usr/libexec/java_home -v 17`
 # export JAVA_21_HOME=`/usr/libexec/java_home -v 21`
+
 # export JAVA_HOME=$JAVA_8_HOME
 
 # alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
@@ -47,6 +62,7 @@ alias tomcatoff='$CATALINA_HOME/bin/shutdown.sh'
 # alias jdk21="export JAVA_HOME=$JAVA_21_HOME"
 
 # Homebrew
+# OpenJDK
 # For the system Java wrappers to find this JDK, symlink it with
 # sudo ln -sfn $(brew --prefix)/opt/openjdk@8/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-8.jdk
 # sudo ln -sfn $(brew --prefix)/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
