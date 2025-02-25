@@ -52,15 +52,14 @@ services:
       - ${MYSQL_HOME}/5.7/etc/my.cnf:/etc/my.cnf
 
 
-  mysql-5.5:
-    container_name: mysql-5.5
-    image: mysql:5.5
-    network_mode: bridge
-    ports:
-      - "33055:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
-    volumes:
-      - ${MYSQL_HOME}/5.5/data:/var/lib/mysql
-      - ${MYSQL_HOME}/5.5/etc/mysql/my.cnf:/etc/mysql/my.cnf
-
+  # mysql-5.5:
+  #   container_name: mysql-5.5
+  #   image: mysql:5.5
+  #   network_mode: bridge
+  #   ports:
+  #     - "33055:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+  #   volumes:
+  #     - ${MYSQL_HOME}/5.5/data:/var/lib/mysql
+  #     - ${MYSQL_HOME}/5.5/etc/mysql/my.cnf:/etc/mysql/my.cnf

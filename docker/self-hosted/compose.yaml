@@ -9,7 +9,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ${MYSQL_HOME}/${MYSQL_VERSION}/data:/var/lib/mysql
       - ${MYSQL_HOME}/${MYSQL_VERSION}/etc/my.cnf:/etc/my.cnf
@@ -104,11 +104,14 @@ services:
   #   #   - ${KAFKA_HOME}/kafkaui/config.yml:/etc/kafkaui/dynamic_config.yaml
 
   rabbitmq:
-    image: rabbitmq:4-management
+    image: rabbitmq:${RABBITMQ_VERSION}
     container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
 
   minio:
@@ -118,10 +121,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      # 至少3位，默认 minioadmin
-      MINIO_ROOT_USER: minioadmin
-      # 至少8位，默认 minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ${MINIO_HOME}/data:/data
       # - ${MINIO_HOME}/config:/root/.minio
