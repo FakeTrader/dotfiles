@@ -22,11 +22,10 @@ alias jdk21="jdk 21"
 # alias jdk25="jdk 25"
 
 alias graal21="graal 21"
-
 export GRAALVM_HOME=/Library/Java/JavaVirtualMachines/graalvm-21.jdk/Contents/Home
 
-# Default Java 1.8
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+# export JAVA_HOME=`/usr/libexec/java_home -v 17`
 # export JAVA_HOME=`/usr/libexec/java_home -v 21`
 set_sdk "jdk" 21
 

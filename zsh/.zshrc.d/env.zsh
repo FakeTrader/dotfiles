@@ -1,11 +1,12 @@
+# Load .env
+source $HOME/.env
+
 ## Locale
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-
 # export MANPATH="/usr/local/man:$MANPATH"
-
 
 ## LaTeX
 # OPENTYPEFONTS option, which defaults to $TEXMFDOTDIR;$TEXMF/fonts/{opentype,truetype}//;$OSFONTDIR//.
