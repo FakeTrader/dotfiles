@@ -1,3 +1,5 @@
+source $HOME/.env
+
 # Load Homebrew before other commands
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
