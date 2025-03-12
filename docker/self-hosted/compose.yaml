@@ -129,22 +129,31 @@ services:
     command: server /data --console-address ":9001"
 
 
-
-# docker run
-# --env=SFTPGO_FTPD__PASSIVE_PORT_RANGE__END=40010
-# --env=SFTPGO_FTPD__BINDINGS__0__PORT=2021
-# --env=SFTPGO_FTPD__BINDINGS__0__FORCE_PASSIVE_IP=127.0.0.1
-# --env=SFTPGO_FTPD__BINDINGS__0__PASSIVE_CONNECTIONS_SECURITY=1
-# --env=SFTPGO_FTPD__BINDINGS__0__ACTIVE_CONNECTIONS_SECURITY=1
-# --env=SFTPGO_FTPD__PASSIVE_PORT_RANGE__START=40000
-# --env=SFTPGO_WEBDAVD__BINDINGS__0__PORT=5005
-# -p 2020:2020 -p 2021:2021 -p 2022:2022
-# -p 40000:40000 -p 40001:40001 -p 40002:40002 -p 40003:40003 -p 40004:40004 -p 40005:40005 -p 40006:40006 -p 40007:40007 -p 40008:40008 -p 40009:40009 -p 40010:40010
-# -p 5005:5005 -p 28080:8080 -p 28090:8090
-# -d drakkan/sftpgo:v2
-
-
+  sftpgo:
+    image: drakkan/sftpgo:latest
+    container_name: sftpgo
+    ports:
+      # Web UI
+      - 2020:8080
+      # SFTP/SSH
+      - 2022:2022
+      # extra
+      # FTP
+      - 2021:21
+      - 50000-50010:50000-50010
+      # WebDAV
+      - 2080:80
+    environment:
+      SFTPGO_FTPD__BINDINGS__0__PORT: 21
+      SFTPGO_FTPD__BINDINGS__0__FORCE_PASSIVE_IP: 127.0.0.1
+      SFTPGO_FTPD__PASSIVE_PORT_RANGE__START: 50000
+      SFTPGO_FTPD__PASSIVE_PORT_RANGE__END: 50010
+      SFTPGO_WEBDAVD__BINDINGS__0__PORT: 80
+    volumes:
+      # - ${SFTPGO_HOME}:/srv/sftpgo
+      - ${SFTPGO_HOME}/data:/srv/sftpgo/data
+      - ${SFTPGO_HOME}/backups:/srv/sftpgo/backups
+      - ${SFTPGO_HOME}/home:/var/lib/sftpgo
 
 
 # docker run --name kafka-ui -p 39099:8080 --privileged=true --network=host -e KAFKA_CLUSTERS_0_NAME=Local -e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=10.100_0.16:6667 -d provectuslabs/kafka-ui:latest
-
