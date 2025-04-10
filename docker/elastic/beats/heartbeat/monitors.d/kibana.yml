@@ -1,0 +1,14 @@
+
+- type: http
+  id: kibana-http
+  name: Kibana HTTP
+  schedule: '@every 5s'
+  urls:
+    - http://kibana:5601
+
+- type: icmp
+  id: kibana-icmp
+  name: Kibana ICMP
+  schedule: '@every 5s'
+  hosts:
+    - kibana

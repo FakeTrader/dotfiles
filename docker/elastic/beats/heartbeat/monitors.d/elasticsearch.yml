@@ -1,0 +1,16 @@
+
+- type: http
+  id: elasticsearch-http
+  name: Elasticsearch HTTP
+  schedule: '@every 5s'
+  urls:
+    - http://elasticsearch:9200
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
+
+- type: icmp
+  id: elasticsearch-icmp
+  name: Elasticsearch ICMP
+  schedule: '@every 5s'
+  hosts:
+    - elasticsearch

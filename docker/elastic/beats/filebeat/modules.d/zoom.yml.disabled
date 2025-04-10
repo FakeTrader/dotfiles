@@ -1,0 +1,28 @@
+# Module: zoom
+# Docs: https://www.elastic.co/guide/en/beats/filebeat/8.17/filebeat-module-zoom.html
+
+- module: zoom
+  webhook:
+    enabled: false
+
+    # The type of input to use
+    #var.input: http_endpoint
+
+    # The interface to listen for incoming HTTP requests. Defaults to
+    # localhost. Set to 0.0.0.0 to bind to all available interfaces.
+    #var.listen_address: localhost
+
+    # The port to bind to
+    #var.listen_port: 80
+
+    # The header Zoom uses to send its secret token, defaults to "Authorization"
+    #secret.header: Authorization
+
+    # The custom secret token value created when configuring the Zoom webhook
+    #secret.value: my-custom-value
+
+    # Enable the CRC webhook validation
+    #crc.enabled: false
+
+    # The secret token value provided by Zoom for CRC validation
+    #crc.secret: ZOOMSECRETTOKEN

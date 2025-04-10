@@ -1,0 +1,5 @@
+- module: beat
+  xpack.enabled: true
+  period: 10s
+  hosts: ["http://apm-server:6791"]
+  basepath: /processes/apm-server-default
