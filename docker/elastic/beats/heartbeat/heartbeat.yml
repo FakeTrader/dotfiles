@@ -1,3 +1,9 @@
+## Heartbeat configuration
+## https://github.com/elastic/beats/blob/main/deploy/docker/heartbeat.docker.yml
+#
+
+name: heartbeat
+
 # Define a directory to load monitor definitions from. Definitions take the form
 # of individual yaml files.
 heartbeat.config.monitors:
@@ -14,5 +20,24 @@ processors:
 
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
-  username: '${ELASTICSEARCH_USERNAME:}'
-  password: '${ELASTICSEARCH_PASSWORD:}'
+  username: 'heartbeat_internal'
+  password: '${HEARTBEAT_INTERNAL_PASSWORD}'
+
+setup.kibana:
+  host: "${ELASTICSEARCH_HOSTS}"
+  # username: "my_kibana_user"
+  # password: "{pwd}"
+
+monitoring:
+  enabled: true
+  elasticsearch:
+    username: 'beats_system'
+    password: '${BEATS_SYSTEM_PASSWORD}'
+
+## HTTP endpoint for health checking
+## https://www.elastic.co/guide/en/beats/heartbeat/current/http-endpoint.html
+#
+
+http:
+  enabled: true
+  host: 0.0.0.0

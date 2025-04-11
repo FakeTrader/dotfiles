@@ -1,0 +1,243 @@
+name: elastic
+
+networks:
+  elastic:
+    driver: bridge
+
+volumes:
+  esdata:
+
+services:
+
+  setup:
+    profiles:
+      - setup
+    image: ${ES_IMAGE}
+    container_name: setup
+    restart: no
+    depends_on:
+      - elasticsearch
+    networks:
+      - elastic
+    # command: bash /setup.sh
+    # volumes:
+    #   - ./setup/setup.sh:/setup.sh
+    command: bash /entrypoint.sh
+    volumes:
+      - ./setup/entrypoint.sh:/entrypoint.sh:ro,Z
+      - ./setup/lib.sh:/lib.sh:ro,Z
+      - ./setup/roles:/roles:ro,Z
+    environment:
+      # superuser
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-}
+      # built-in users
+      - KIBANA_SYSTEM_PASSWORD=${KIBANA_SYSTEM_PASSWORD:-}
+      - BEATS_SYSTEM_PASSWORD=${BEATS_SYSTEM_PASSWORD:-}
+      - LOGSTASH_SYSTEM_PASSWORD=${LOGSTASH_SYSTEM_PASSWORD:-}
+      - REMOTE_MONITORING_USER_PASSWORD=${REMOTE_MONITORING_USER_PASSWORD:-}
+      - APM_SYSTEM_PASSWORD=${APM_SYSTEM_PASSWORD:-}
+      # internal users
+      - LOGSTASH_INTERNAL_PASSWORD=${LOGSTASH_INTERNAL_PASSWORD:-}
+      - METRICBEAT_INTERNAL_PASSWORD=${METRICBEAT_INTERNAL_PASSWORD:-}
+      - FILEBEAT_INTERNAL_PASSWORD=${FILEBEAT_INTERNAL_PASSWORD:-}
+      - HEARTBEAT_INTERNAL_PASSWORD=${HEARTBEAT_INTERNAL_PASSWORD:-}
+      - MONITORING_INTERNAL_PASSWORD=${MONITORING_INTERNAL_PASSWORD:-}
+
+  elasticsearch:
+    image: ${ES_IMAGE}
+    container_name: es01
+    restart: unless-stopped
+    mem_limit: "${ES_MEM_LIMIT:-1g}"
+    networks:
+      - elastic
+    ports:
+      - "${ES_PORT}:9200"
+      - "9300:9300"
+    environment:
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    volumes:
+      # - esdata:/usr/share/elasticsearch/data:Z
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      - ${STACK_HOME}/elasticsearch/logs/:/usr/share/elasticsearch/logs/
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "curl -f -s -k -u elastic:${ELASTIC_PASSWORD} https://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=500ms"
+      ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  kibana:
+    image: ${KB_IMAGE}
+    container_name: kb
+    restart: unless-stopped
+    mem_limit: ${KB_MEM_LIMIT:-1g}
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    ports:
+      - "${KB_PORT}:5601"
+    volumes:
+      # - kbdata:/usr/share/kibana/data
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+    environment:
+      - KIBANA_SYSTEM_PASSWORD=${KIBANA_SYSTEM_PASSWORD:-}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  logstash:
+    image: ${LS_IMAGE}
+    container_name: ls01
+    restart: unless-stopped
+    mem_limit: "${LS_MEM_LIMIT:-1g}"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    ports:
+      - "${LS_PORT}:5044"
+      - "9600:9600"
+      - "4560:4560"
+    volumes:
+      # - lsdata:/usr/share/logstash/data
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
+    environment:
+      - LS_JAVA_OPTS=-Xms256m -Xmx256m
+      - LOGSTASH_INTERNAL_PASSWORD=${LOGSTASH_INTERNAL_PASSWORD:-}
+
+  apm-server:
+    image: ${APM_IMAGE}
+    container_name: apm-server
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    ports:
+      - ${APM_PORT}:8200
+    volumes:
+      # - apmdata:/usr/share/apm-server/data
+      - ./apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
+    command: --strict.perms=false
+    environment:
+      - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
+      - ELASTICSEARCH_USERNAME=${APM_ES_USERNAME:-}
+      - ELASTICSEARCH_PASSWORD=${APM_ES_PASSWORD:-}
+
+  filebeat:
+    image: ${FB_IMAGE}
+    container_name: fb01
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    # Run as 'root' instead of 'filebeat' (uid 1000) to allow reading
+    # 'docker.sock' and the host's filesystem.
+    user: root
+    command:
+      # Log to stderr.
+      - -e
+      # Disable config file permissions checks. Allows mounting
+      # 'config/filebeat.yml' even if it's not owned by root.
+      # see: https://www.elastic.co/guide/en/beats/libbeat/current/config-file-permissions.html
+      - --strict.perms=false
+    volumes:
+      # - fbdata:/usr/share/filebeat/data
+      - ./beats/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./beats/filebeat/modules.d/:/usr/share/filebeat/modules.d/
+      # logs
+      - ${STACK_HOME}/elasticsearch/logs/:/usr/share/elasticsearch/logs/:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
+      - FILEBEAT_INTERNAL_PASSWORD=${FILEBEAT_INTERNAL_PASSWORD:-}
+      - BEATS_SYSTEM_PASSWORD=${BEATS_SYSTEM_PASSWORD:-}
+
+  metricbeat:
+    image: ${MB_IMAGE}
+    container_name: mb01
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    # Run as 'root' instead of 'metricbeat' (uid 1000) to allow reading
+    # 'docker.sock' and the host's filesystem.
+    user: root
+    command:
+      # Log to stderr.
+      - -e
+      # Disable config file permissions checks. Allows mounting
+      # 'config/metricbeat.yml' even if it's not owned by root.
+      # see: https://www.elastic.co/guide/en/beats/libbeat/current/config-file-permissions.html
+      - --strict.perms=false
+      # Mount point of the host’s filesystem. Required to monitor the host
+      # from within a container.
+      - --system.hostfs=/hostfs
+    volumes:
+      # - mbdata:/usr/share/metricbeat/data
+      - ./beats/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      - ./beats/metricbeat/modules.d/:/usr/share/metricbeat/modules.d/
+      # monitor docker
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      #
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run:/var/run:rw
+      # system
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      #
+      - /:/hostfs:ro
+      - /sys:/sys:ro
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - KIBANA_HOSTS=http://kibana:5601
+      - LOGSTASH_HOSTS=http://logstash:9600
+      - METRICBEAT_INTERNAL_PASSWORD=${METRICBEAT_INTERNAL_PASSWORD:-}
+      - MONITORING_INTERNAL_PASSWORD=${MONITORING_INTERNAL_PASSWORD:-}
+      - BEATS_SYSTEM_PASSWORD=${BEATS_SYSTEM_PASSWORD:-}
+
+  heartbeat:
+    image: ${HB_IMAGE}
+    container_name: hb01
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - elastic
+    command:
+      # Log to stderr.
+      - -e
+      # Disable config file permissions checks. Allows mounting
+      # 'config/heartbeat.yml' even if it's not owned by root.
+      # see: https://www.elastic.co/guide/en/beats/libbeat/current/config-file-permissions.html
+      - --strict.perms=false
+    volumes:
+      # - hbdata:/usr/share/heartbeat/data
+      - ./beats/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+      - ./beats/heartbeat/monitors.d/:/usr/share/heartbeat/monitors.d/
+    environment:
+      - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
+      - KIBANA_HOSTS=http://kibana:5601
+      - HEARTBEAT_INTERNAL_PASSWORD=${HEARTBEAT_INTERNAL_PASSWORD:-}
+      - BEATS_SYSTEM_PASSWORD=${BEATS_SYSTEM_PASSWORD:-}

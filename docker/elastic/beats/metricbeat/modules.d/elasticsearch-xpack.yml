@@ -8,6 +8,6 @@
   #username: "user"
   #password: "secret"
   #api_key: "foo:bar"
-  username: ${ELASTICSEARCH_USERNAME:-beats_system}
-  password: ${ELASTICSEARCH_PASSWORD:-changeme}
+  username: metricbeat_internal
+  password: ${METRICBEAT_INTERNAL_PASSWORD}
 

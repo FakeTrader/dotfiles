@@ -4,8 +4,8 @@
 - module: kibana
   xpack.enabled: true
   period: 10s
-  hosts: ["localhost:5601"]
+  hosts: ["http://kibana:5601"]
   #basepath: ""
-  username: ${ELASTICSEARCH_USERNAME:-beats_system}
-  password: ${ELASTICSEARCH_PASSWORD:-changeme}
+  username: metricbeat_internal
+  password: ${METRICBEAT_INTERNAL_PASSWORD}
   #api_key: "foo:bar"

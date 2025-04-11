@@ -7,5 +7,5 @@
   hosts: ["http://logstash:9600"]
   #username: "user"
   #password: "secret"
-  username: ${ELASTICSEARCH_USERNAME:-beats_system}
-  password: ${ELASTICSEARCH_PASSWORD:-changeme}
+  username: metricbeat_internal
+  password: ${METRICBEAT_INTERNAL_PASSWORD}

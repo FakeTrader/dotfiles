@@ -5,8 +5,8 @@
   schedule: '@every 5s'
   urls:
     - http://elasticsearch:9200
-  username: '${ELASTICSEARCH_USERNAME:}'
-  password: '${ELASTICSEARCH_PASSWORD:}'
+  username: 'heartbeat_internal'
+  password: '${HEARTBEAT_INTERNAL_PASSWORD}'
 
 - type: icmp
   id: elasticsearch-icmp
