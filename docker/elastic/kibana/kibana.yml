@@ -4,6 +4,11 @@ server.shutdownTimeout: "5s"
 elasticsearch.hosts: [ "http://elasticsearch:9200" ]
 monitoring.ui.container.elasticsearch.enabled: true
 
+# docker container run --rm elastic/kibana:9.0.0 bin/kibana-encryption-keys generate -q
+xpack.encryptedSavedObjects.encryptionKey: 0123456789abcdef0123456789abcdef
+xpack.reporting.encryptionKey: 0123456789abcdef0123456789abcdef
+xpack.security.encryptionKey:  0123456789abcdef0123456789abcdef
+
 # i18n.locale: "zh-CN"
 server.name: kibana
 elasticsearch.username: kibana_system

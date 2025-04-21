@@ -58,7 +58,7 @@ services:
       - discovery.type=single-node
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
-      # - esdata:/usr/share/elasticsearch/data:Z
+      - esdata:/usr/share/elasticsearch/data:Z
       - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
       - ${STACK_HOME}/elasticsearch/logs/:/usr/share/elasticsearch/logs/
     healthcheck:
