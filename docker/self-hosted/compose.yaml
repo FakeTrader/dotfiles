@@ -45,35 +45,35 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
 
-  oracle:
-    # image: oracle/database:19.3.0-ee
-    image: container-registry.oracle.com/database/free:23.5.0.0-lite
-    container_name: oracle-db
-    # restart: always
-    environment:
-      # ORACLE_PDB: FREEPDB1
-      # ORACLE_SID
-      # ORACLE_SID: ORCL
-      # 21 必须为 XE
-      # ORACLE_SID: XE
-      # 23ai 必须为 FREE
-      ORACLE_SID: FREE
-      ORACLE_PWD: oracle
-    ports:
-      - "1521:1521"
-      - "5500:5500"
-    volumes:
-      - ${ORACLE_HOME}/23ai/opt/oracle/oradata:/opt/oracle/oradata
+  # oracle:
+  #   # image: oracle/database:19.3.0-ee
+  #   image: container-registry.oracle.com/database/free:23.5.0.0-lite
+  #   container_name: oracle-db
+  #   # restart: always
+  #   environment:
+  #     # ORACLE_PDB: FREEPDB1
+  #     # ORACLE_SID
+  #     # ORACLE_SID: ORCL
+  #     # 21 必须为 XE
+  #     # ORACLE_SID: XE
+  #     # 23ai 必须为 FREE
+  #     ORACLE_SID: FREE
+  #     ORACLE_PWD: oracle
+  #   ports:
+  #     - "1521:1521"
+  #     - "5500:5500"
+  #   volumes:
+  #     - ${ORACLE_HOME}/23ai/opt/oracle/oradata:/opt/oracle/oradata
 
   # sftp:
   #   container_name: sftp-go
   #   image: drakkan/sftpgo:latest
 
-  zookeeper:
-    image: zookeeper:${ZOOKEEPER_VERSION}
-    container_name: zookeeper
-    ports:
-      - "2181:2181"
+  # zookeeper:
+  #   image: zookeeper:${ZOOKEEPER_VERSION}
+  #   container_name: zookeeper
+  #   ports:
+  #     - "2181:2181"
 
   kafka-broker:
     image: apache/kafka:${KAFKA_VERSION}
