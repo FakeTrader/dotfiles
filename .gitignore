@@ -1,3 +1,8 @@
-docker/easyconnect/
-private/
+### Ignore ###
 .env
+private/
+
+### Common ###
+.idea
+.vscode/
+.DS_Store
