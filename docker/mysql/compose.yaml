@@ -39,17 +39,17 @@ services:
     # command: --port 33080
 
 
-  mysql-5.7:
-    container_name: mysql-5.7
-    image: mysql:5.7
-    network_mode: bridge
-    ports:
-      - "33057:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
-    volumes:
-      - ${MYSQL_HOME}/5.7/data:/var/lib/mysql
-      - ${MYSQL_HOME}/5.7/etc/my.cnf:/etc/my.cnf
+  # mysql-5.7:
+  #   container_name: mysql-5.7
+  #   image: mysql:5.7
+  #   network_mode: bridge
+  #   ports:
+  #     - "33057:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+  #   volumes:
+  #     - ${MYSQL_HOME}/5.7/data:/var/lib/mysql
+  #     - ${MYSQL_HOME}/5.7/etc/my.cnf:/etc/my.cnf
 
 
   # mysql-5.5:
