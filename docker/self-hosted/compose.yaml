@@ -35,8 +35,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ${POSTGRES_HOME}/postgresql.conf:/etc/postgresql/postgresql.conf
-      - ${POSTGRES_HOME}/data:/var/lib/postgresql/data
+      - ${POSTGRES_HOME}/${POSTGRES_VERSION}/postgresql.conf:/etc/postgresql/postgresql.conf
+      # PG 18+ binds to /var/lib/postgresql
+      - ${POSTGRES_HOME}/${POSTGRES_VERSION}/data:/var/lib/postgresql
     #volumes:
     #  - type: tmpfs
     #    target: /dev/shm

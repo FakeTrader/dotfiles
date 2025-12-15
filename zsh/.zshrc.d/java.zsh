@@ -6,10 +6,10 @@ jdk() {
     java -version
 }
 
-graal() {
-    set_sdk "graalvm" $1
-    java -version
-}
+# graal() {
+#     set_sdk "graalvm" $1
+#     java -version
+# }
 
 set_sdk () {
     export JAVA_HOME=/Library/Java/JavaVirtualMachines/$1-$2.jdk/Contents/Home;
@@ -21,14 +21,17 @@ alias jdk17="jdk 17"
 alias jdk21="jdk 21"
 alias jdk25="jdk 25"
 
-alias graal21="graal 21"
-export GRAALVM_HOME=/Library/Java/JavaVirtualMachines/graalvm-21.jdk/Contents/Home
-
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 # export JAVA_HOME=`/usr/libexec/java_home -v 17`
 # export JAVA_HOME=`/usr/libexec/java_home -v 21`
 # export JAVA_HOME=`/usr/libexec/java_home -v 25`
 set_sdk "jdk" 25
+
+alias graal25="graal 25"
+set_graalvm () {
+    export GRAALVM_HOME=/Library/Java/JavaVirtualMachines/graalvm-$1.jdk/Contents/Home;
+}
+set_graalvm 25
 
 ## Tomcat
 export PATH="$HOMEBREW_PREFIX/opt/tomcat@9/bin:$PATH"
